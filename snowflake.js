@@ -1,3 +1,5 @@
+let meltingCoeff = 1.001;
+
 function getRandomSize() {
   let r = pow(random(0.2, 1), 5);
   return constrain(r * 32, 2, 32);
@@ -60,7 +62,7 @@ class Snowflake {
       this.pos.x = -this.r;
     }
 
-    this.r = this.r / 1.0005;
+    this.r = this.r / meltingCoeff;
     this.angle += this.dir * this.vel.mag() / 500;
   }
 
