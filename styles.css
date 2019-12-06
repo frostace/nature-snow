@@ -1,0 +1,4 @@
+/*$('selector').css({'cursor': 'url('magic staff.png'), auto'});*/
+.cursor {
+ cursor:url(magic staff.png), auto;
+}
