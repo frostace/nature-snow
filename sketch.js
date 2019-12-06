@@ -1,9 +1,12 @@
 let snowflakes = [];
 let gravity;
+let disturbance;
 let windStrength = 0.01;
 let zOff = 0;
-let mouseRepellRadius = 400;
+let mouseRepellRadius = 500;
 let mouseRepellCoeff = 100;
+let mouseAttractRadius = 2000;
+let mouseAttractCoeff = 200;
 
 let file;
 let textures = [];
@@ -28,19 +31,56 @@ function setup() {
     let texture = random(textures);
     snowflakes.push(new Snowflake(x, y, texture));
   }
+
+  disturbance = createVector(0, 0);
+  console.log(disturbance);
+}
+
+function attractForceofMouse(snowflake) {
+  let attractForce;
+  if (mouseX < 0 || mouseY < 0 || mouseX >= width || mouseY >= height
+    || createVector(snowflake.pos.x - mouseX, snowflake.pos.y - mouseY).mag()
+    > mouseAttractRadius) {
+    attractForce = createVector(0, 0);
+  } else {
+    attractForce = createVector( mouseX - snowflake.pos.x,
+                                 mouseY - snowflake.pos.y);
+    attractForce.setMag(mouseAttractCoeff / (attractForce.mag()
+                                          * attractForce.mag() + 0.00000001));
+    attractForce.limit(0.03);
+  }
+  return attractForce;
 }
 
 function repellForceofMouse(snowflake) {
   let repellForce;
   // console.log(mouseX, width, mouseY, height);
-  if (mouseX < 0 || mouseY < 0 || mouseX >= width || mouseY >= height || createVector(snowflake.pos.x - mouseX, snowflake.pos.y - mouseY).mag() > mouseRepellRadius) {
+  if (mouseX < 0 || mouseY < 0 || mouseX >= width || mouseY >= height
+    || createVector(snowflake.pos.x - mouseX, snowflake.pos.y - mouseY).mag()
+    > mouseRepellRadius) {
     repellForce = createVector(0, 0);
   } else {
-    repellForce = createVector(snowflake.pos.x - mouseX, snowflake.pos.y - mouseY);
-    repellForce.setMag(mouseRepellCoeff / (repellForce.mag() * repellForce.mag() + 0.00000001));
+    repellForce = createVector( snowflake.pos.x - mouseX,
+                                snowflake.pos.y - mouseY);
+    repellForce.setMag(mouseRepellCoeff / (repellForce.mag()
+                                        * repellForce.mag() + 0.00000001));
     repellForce.limit(0.02);
   }
   return repellForce;
+}
+
+function keyPressed() {
+  if (keyCode === LEFT_ARROW) {
+    disturbance = createVector(-0.01, 0);
+  } else if (keyCode === RIGHT_ARROW) {
+    disturbance = createVector(0.01, 0);
+  } else if (keyCode === UP_ARROW) {
+    disturbance = createVector(0, -0.01);
+  } else if (keyCode === DOWN_ARROW) {
+    disturbance = createVector(0, 0.01);
+  } else {
+    disturbance = createVector(0, 0);
+  }
 }
 
 function draw() {
@@ -61,11 +101,18 @@ function draw() {
     let wind = p5.Vector.fromAngle(wAngle);
     wind.mult(windStrength);
 
-    let mouseRepell = repellForceofMouse(snowflake);
+    // a snowflake cannot have attractForce and repellForce at the same time
+    let mouseForce;
+    if (mouseIsPressed) {
+      mouseForce = attractForceofMouse(snowflake);
+    } else {
+      mouseForce = repellForceofMouse(snowflake);
+    }
 
     snowflake.applyForce(gravity);
     snowflake.applyForce(wind);
-    snowflake.applyForce(mouseRepell);
+    snowflake.applyForce(mouseForce);
+    snowflake.applyForce(disturbance);
 
     snowflake.fall();
     snowflake.render();
