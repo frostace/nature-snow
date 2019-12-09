@@ -1,5 +1,5 @@
 # Snow
- Be with snow!
+ Play with snow!
 
 https://frostace.github.io/nature-snow
 
