@@ -1,7 +1,7 @@
 # Snow
  Be with snow!
 
-https://frostace.github.io/snow
+https://frostace.github.io/nature-snow
 
 ## TODO:
 * Interaction with mouseclick, snowflakes would avoid mouse clicked positions.
