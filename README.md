@@ -1,12 +1,16 @@
 # Snow
- Be with snow!
+ Play with snow!
 
-https://frostace.github.io
+
+
+## Description
+This is an Interactive Snow Visualization Website 
+I:
+* Implemented simple physics engine that can produce repelling and attracting force between snowflakes and,
+* Designed the visualization with p5.js and improved interaction with mousemove and mousehold
+
 
 ## TODO:
-* Interaction with mouseclick, snowflakes would avoid mouse clicked positions.
   * Add a Magic Staff with glow light spreading around, telling the users that the staff has a repelling force.
-  * ~~Click and Hold Mouse to gather snowflakes~~
   * Waiting to add Separation
-  * ~~Press up, down left right to add wind~~
   * Press "S" to create snowflakes
