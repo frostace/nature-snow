@@ -1,0 +1,69 @@
+/*$('selector').css({'cursor': 'url('magic staff.png'), auto'});*/
+/*.cursor {
+	cursor:url(magic staff.png), auto;
+}*/
+
+body {
+    cursor: url("../assets/magic-staff.png"), default;
+}
+
+#glow {
+    position: fixed;
+    height: 2px;
+    width: 2px;
+    color: #fff;
+    border-radius: 100px;
+    text-align: center;
+    -webkit-animation: glow 1s ease-in-out infinite alternate;
+    -moz-animation: glow 1s ease-in-out infinite alternate;
+    animation: glow 1s ease-in-out infinite alternate;
+}
+
+@-webkit-keyframes glow {
+    from {
+        box-shadow: 0 0 110px #fff, 0 0 120px #fff, 0 0 130px #0096c7,
+            0 0 140px #0096c7, 0 0 150px #0096c7, 0 0 160px #0096c7,
+            0 0 200px #0096c7;
+    }
+
+    to {
+        box-shadow: 0 0 120px #fff, 0 0 130px #00b4d8, 0 0 140px #00b4d8,
+            0 0 150px #00b4d8, 0 0 160px #00b4d8, 0 0 170px #00b4d8,
+            0 0 210px #00b4d8;
+    }
+}
+
+.hint-section {
+    position: fixed;
+    display: flex;
+    margin-top: 20px;
+    margin-left: 20px;
+    flex-direction: column;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.hint {
+    height: 30px;
+    width: 125px;
+    background-color: #f4f4f4;
+    opacity: 0.4;
+    /* border-radius: 4px; */
+    padding: 8px 20px;
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    align-items: center;
+    gap: 20px;
+}
+
+.hint:first-child {
+    border-radius: 4px 4px 0 0;
+}
+.hint:last-child {
+    border-radius: 0 0 4px 4px;
+}
+
+img {
+    height: 18px;
+}

@@ -1,8 +1,0 @@
-/*$('selector').css({'cursor': 'url('magic staff.png'), auto'});*/
-/*.cursor {
- cursor:url(magic staff.png), auto;
-}*/
-
-html {
-   cursor: url('https://drive.google.com/file/d/1qfaUa-Y01y8-6zlWAPAhoMBGOtSLwDpE/view'), pointer;            
-}
