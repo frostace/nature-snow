@@ -1,7 +1,7 @@
 # Snow
  Play with snow!
 
-https://frostace.github.io/nature-snow
+
 
 ## Description
 An Interactive Website Design with pure javascript and p5.js
