@@ -2,6 +2,9 @@
 /*.cursor {
 	cursor:url(magic staff.png), auto;
 }*/
+* {
+    font-family: Arial, Helvetica, sans-serif;
+}
 
 body {
     cursor: url("../assets/magic-staff.png"), default;
@@ -66,4 +69,14 @@ body {
 
 img {
     height: 18px;
+}
+
+span,
+img,
+svg,
+.icon-section {
+    -webkit-user-select: none; /* Safari */
+    -moz-user-select: none; /* Firefox */
+    -ms-user-select: none; /* IE10+/Edge */
+    user-select: none; /* Standard */
 }

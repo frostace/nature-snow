@@ -2,9 +2,8 @@ let meltingCoeff = 1.001;
 
 function getRandomSize() {
     let r = pow(random(0.2, 1), 5);
+    // let r = pow(random(0.98, 1), 5);
     return constrain(r * 32, 2, 32);
-    // let r = randomGaussian() * 2.5;
-    // return constrain(abs(r * r), 2, 10);
 }
 
 class Snowflake {
@@ -20,6 +19,10 @@ class Snowflake {
         this.angle = random(TWO_PI);
         this.dir = random(1) > 0.5 ? 1 : -1;
         this.xOffset = 0;
+        this.resideTree = null; // quad
+
+        // uncomment this to enable quad tree
+        // qt.insert(this);
     }
 
     randomize() {
@@ -48,10 +51,12 @@ class Snowflake {
         this.pos.add(this.vel);
         this.acc.mult(0);
 
+        // if snowflake falls out of bottom or too small, regenerate
         if (this.pos.y > height + this.r || this.r < 0.01) {
             this.randomize();
         }
 
+        // if snowflake gets out of left / right side, re-appear from the other side
         if (this.pos.x < -this.r) {
             this.pos.x = width + this.r;
         }
@@ -61,6 +66,23 @@ class Snowflake {
 
         this.r = this.r / meltingCoeff;
         this.angle += (this.dir * this.vel.mag()) / 500;
+
+        // now that position of the snowflake is confirmed in this iteration, update quadtree
+        // console.log(this.outOfCurrArea());
+        if (!this.outOfCurrArea()) {
+            // do nothing
+        } else {
+            // console.log("insert to new sub qt", this.pos.x, this.pos.y);
+            // delete this snowflake from this.resideTree if it has a resideTree
+            !this.resideTree || removeFlakeFromResideTree(snowflake);
+
+            // insert this snowflake again into qt
+            this.resideTree = null;
+
+            // uncomment this to enable quad tree
+            // qt.insert(this);
+        }
+        // !this.outOfCurrArea() || qt.insert(this);
     }
 
     render() {
@@ -82,4 +104,22 @@ class Snowflake {
             this.pos.x > width + this.r
         );
     }
+
+    outOfCurrArea() {
+        // console.log("checking: ", this.pos.x, this.pos.y, this.resideTree);
+        return (
+            !this.resideTree ||
+            Math.abs(this.pos.x - this.resideTree.area.x) >
+                this.resideTree.area.w / 2 ||
+            Math.abs(this.pos.y - this.resideTree.area.y) >
+                this.resideTree.area.h / 2
+        );
+    }
+}
+
+function removeFlakeFromResideTree(snowflake) {
+    snowflake.resideTree.snowflakes.splice(
+        snowflake.resideTree.snowflakes.indexOf(snowflake),
+        1
+    );
 }
