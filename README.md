@@ -11,6 +11,5 @@ I:
 
 
 ## TODO:
-  * Add a Magic Staff with glow light spreading around, telling the users that the staff has a repelling force.
   * Waiting to add Separation
   * Press "S" to create snowflakes
