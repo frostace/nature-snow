@@ -1,18 +1,26 @@
 let snowflakes = [];
 let gravity;
 let disturbance;
+let disturbanceStrength = 1.5;
 let windStrength = 0.01;
 let zOff = 0;
 let mouseRepellRadius = 500;
 let mouseRepellCoeff = 100;
 let mouseAttractRadius = 2000;
 let mouseAttractCoeff = 200;
-let snowflakeNum = 100;
+let snowflakeNum = 800;
 
 let file;
 let textures = [];
+
+// init global qt
+let w = window.innerWidth,
+    h = window.innerHeight;
+let area = new Area(w / 2, h / 2, w, h);
+let qt = new QuadTree(area, 4);
+
 function preload() {
-    file = loadImage("flakes32.png");
+    file = loadImage("./assets/flakes32.png");
 }
 
 function setup() {
@@ -95,6 +103,7 @@ function keyPressed() {
             : keyCode === DOWN_ARROW
             ? createVector(0, 0.01)
             : createVector(0, 0);
+    disturbance.mult(disturbanceStrength);
 }
 
 function mouseOnScreen() {
@@ -111,6 +120,18 @@ function draw() {
 
     zOff += 0.01;
 
+    // find nearby snowflakes
+    // let nearbySnowflakes = [];
+    // let testArea = new Area(250, 250, 300, 300);
+    // stroke(255);
+    // strokeWeight(1);
+    // noFill();
+    // rect(testArea.x, testArea.y, testArea.w, testArea.h);
+    // qt.query(testArea, nearbySnowflakes);
+    // console.log(nearbySnowflakes.length);
+
+    // if I were to generate interactions between snowflakes,
+    // I shall only generate force with nearby snowflakes
     for (snowflake of snowflakes) {
         let xOff = snowflake.pos.x / width;
         let yOff = snowflake.pos.y / height;
@@ -136,11 +157,7 @@ function draw() {
         snowflake.render();
     }
 
-    // for (let i = snowflakes.length - 1; i >= 0; i--) {
-    //   if (snowflakes[i].offScreen()) {
-    //     snowflakes.splice(i, 1);
-    //   }
-    // }
+    // qt.show();
 }
 
 function mouseMoved() {
@@ -150,8 +167,15 @@ function mouseMoved() {
     glowEffect.style.left = mouseX + "px";
 }
 
+function mouseDragged() {
+    // sync location of glow effect with cursor
+    let glowEffect = document.getElementById("glow");
+    glowEffect.style.top = mouseY + "px";
+    glowEffect.style.left = mouseX + "px";
+}
+
 function disableGlowEffect() {
-    console.log("out");
+    // console.log("out");
     let glowEffect = document.getElementById("glow");
     glowEffect.style.display = "hidden";
 }
