@@ -49,8 +49,8 @@ body {
 .hint {
     height: 30px;
     width: 125px;
-    background-color: #f4f4f4;
-    opacity: 0.4;
+    background-color: #1b1d1e;
+    opacity: 0.8;
     /* border-radius: 4px; */
     padding: 8px 20px;
     display: flex;
@@ -69,6 +69,11 @@ body {
 
 img {
     height: 18px;
+}
+
+svg,
+span {
+    color: #f4f4f4;
 }
 
 span,
