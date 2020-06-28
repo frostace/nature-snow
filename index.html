@@ -2,6 +2,40 @@
     <head>
         <title>Snowy Heart!</title>
         <link rel="stylesheet" href="./css/styles.css" />
+    </head>
+
+    <body>
+        <div class="hint-section">
+            <div class="hint arrow">
+                <span>wind</span>
+                <div class="icon-section">
+                    <i class="far fa-arrow-alt-circle-left"></i>
+                    <i class="far fa-arrow-alt-circle-right"></i>
+                    <i class="far fa-arrow-alt-circle-up"></i>
+                    <i class="far fa-arrow-alt-circle-down"></i>
+                </div>
+            </div>
+            <div class="hint click">
+                <span>attract</span>
+                <div class="icon-section">
+                    <img
+                        src="./assets/mouse-click.png"
+                        alt="mouse-click"
+                        class="src"
+                    />
+                </div>
+            </div>
+            <div class="hint move">
+                <span>repell</span>
+                <img
+                    src="./assets/mouse-move.png"
+                    alt="mouse-move"
+                    class="src"
+                />
+            </div>
+        </div>
+        <div id="glow"></div>
+
         <script
             language="javascript"
             type="text/javascript"
@@ -45,38 +79,5 @@
                 margin: 0;
             }
         </style>
-    </head>
-
-    <body>
-        <div class="hint-section">
-            <div class="hint arrow">
-                <span>wind</span>
-                <div class="icon-section">
-                    <i class="far fa-arrow-alt-circle-left"></i>
-                    <i class="far fa-arrow-alt-circle-right"></i>
-                    <i class="far fa-arrow-alt-circle-up"></i>
-                    <i class="far fa-arrow-alt-circle-down"></i>
-                </div>
-            </div>
-            <div class="hint click">
-                <span>attract</span>
-                <div class="icon-section">
-                    <img
-                        src="./assets/mouse-click.png"
-                        alt="mouse-click"
-                        class="src"
-                    />
-                </div>
-            </div>
-            <div class="hint move">
-                <span>repell</span>
-                <img
-                    src="./assets/mouse-move.png"
-                    alt="mouse-move"
-                    class="src"
-                />
-            </div>
-        </div>
-        <div id="glow"></div>
     </body>
 </html>
