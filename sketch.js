@@ -9,6 +9,7 @@ let mouseRepellCoeff = 100;
 let mouseAttractRadius = 2000;
 let mouseAttractCoeff = 200;
 let snowflakeNum = 800;
+let screenIsTouched = false;
 
 let file;
 let textures = [];
@@ -142,7 +143,7 @@ function draw() {
 
         // temporary: a snowflake cannot have attractForce and repellForce at the same time
         let mouseForce;
-        if (mouseIsPressed && mouseOnScreen()) {
+        if ((mouseIsPressed || screenIsTouched) && mouseOnScreen()) {
             mouseForce = attractForceofMouse(snowflake);
         } else {
             mouseForce = repellForceofMouse(snowflake);
@@ -165,6 +166,14 @@ function mouseMoved() {
     let glowEffect = document.getElementById("glow");
     glowEffect.style.top = mouseY + "px";
     glowEffect.style.left = mouseX + "px";
+}
+
+function touchStarted() {
+    screenIsTouched = true;
+}
+
+function touchEnded() {
+    screenIsTouched = false;
 }
 
 function mouseDragged() {
