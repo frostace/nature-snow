@@ -20,6 +20,9 @@ let w = window.innerWidth,
 let area = new Area(w / 2, h / 2, w, h);
 let qt = new QuadTree(area, 4);
 
+// disable friendly error checker
+p5.disableFriendlyErrors = true;
+
 function preload() {
     file = loadImage("./assets/flakes32.png");
 }
@@ -113,11 +116,6 @@ function mouseOnScreen() {
 
 function draw() {
     background(0);
-    // image(textures, 0, 0);
-    // snowflakes.push(new Snowflake());
-
-    // let wx = map(mouseX, 0, width, -0.1, 0.1);
-    // let wind = createVector(wx, 0);
 
     zOff += 0.01;
 
@@ -158,6 +156,14 @@ function draw() {
         snowflake.render();
     }
 
+    // show fps
+    // Draw FPS (rounded to 2 decimal places) at the bottom left of the screen
+    // let fps = frameRate();
+    // fill(255);
+    // stroke(0);
+    // text("FPS: " + fps.toFixed(2), 10, height - 10);
+
+    // uncomment to show quad tree borders
     // qt.show();
 }
 
